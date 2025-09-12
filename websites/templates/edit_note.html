@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %}Edit Note{% endblock %} {% block
+content %}
+<div
+  class="d-flex justify-content-center align-items-center"
+  style="min-height: 80vh"
+>
+  <div class="card shadow-sm w-100" style="max-width: 600px">
+    <div class="card-body">
+      <h3 class="text-center mb-4">Edit Note</h3>
+
+      <!-- ✅ Fixed form action -->
+      <form method="POST" action="{{ url_for('views.edit_note', id=note.id) }}">
+        <!-- Note Field -->
+        <div class="form-group">
+          <label for="note"><strong>Note</strong></label>
+          <textarea
+            name="note"
+            id="note"
+            class="form-control"
+            rows="4"
+            required
+          >
+{{ note.data }}</textarea
+          >
+        </div>
+
+        <!-- Tags Field -->
+        <div class="form-group">
+          <label for="tags"><strong>Tags</strong></label>
+          <input
+            type="text"
+            name="tags"
+            id="tags"
+            class="form-control"
+            value="{{ note.tags | map(attribute='name') | join(', ') }}"
+          />
+        </div>
+
+        <!-- Buttons -->
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-success mr-2">💾 Save</button>
+          <a
+            href="{{ request.referrer or url_for('views.home') }}"
+            class="btn btn-secondary"
+            >🔙 Back</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+<h4>Edit Note</h4>
+<form method="POST" id="edit-note-form">
+  <div class="form-group">
+    <textarea name="note" class="form-control" rows="6" required>
+{{ note.data }}</textarea
+    >
+  </div>
+  <div class="form-group">
+    <input
+      type="text"
+      name="tags"
+      class="form-control"
+      value="{{ note.tags | map(attribute='name') | join(', ') }}"
+      placeholder="Tags (comma-separated)"
+    />
+  </div>
+  <div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+  </div>
+</form>
+
+<script>
+  // AJAX form submission for edit-note
+  document
+    .getElementById("edit-note-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      fetch(location.pathname, {
+        method: "POST",
+        body: new URLSearchParams(formData),
+      }).then((res) => {
+        if (res.redirected) {
+          window.location.href = res.url;
+        } else {
+          alert("Note saved!");
+          // Optionally reload the page or update sidebar here
+        }
+      });
+    });
+</script>

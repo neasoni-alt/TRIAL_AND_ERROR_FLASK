@@ -1,0 +1,91 @@
+{% extends "base.html" %} {% block title %}Welcome{% endblock %} {% block
+content %}
+
+<style>
+  body {
+    background: url("{{ url_for('static', filename='images/flat-lay.jpg') }}")
+      no-repeat center center fixed;
+    background-size: cover;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .welcome-wrapper {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .welcome-card {
+    background: rgba(0, 0, 0, 0.65); /* Dark overlay for contrast */
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 3rem;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .welcome-card img {
+    width: 120px;
+    margin-bottom: 1.5rem;
+    filter: brightness(1.2);
+  }
+
+  .welcome-card h1 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .welcome-card p.lead {
+    font-size: 1.2rem;
+    color: #ddd;
+    margin-bottom: 2rem;
+  }
+
+  .btn-primary {
+    background-color: #17a2b8;
+    border: none;
+    font-size: 1.1rem;
+    padding: 0.75rem 2rem;
+    border-radius: 30px;
+    transition: background 0.3s ease, transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    background-color: #138496;
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 576px) {
+    .welcome-card h1 {
+      font-size: 2rem;
+    }
+
+    .welcome-card p.lead {
+      font-size: 1rem;
+    }
+
+    .welcome-card {
+      padding: 2rem;
+    }
+  }
+</style>
+
+<div class="welcome-wrapper">
+  <div class="welcome-card">
+    <img
+      src="{{ url_for('static', filename='images/notebook.png') }}"
+      alt="Notebook Icon"
+    />
+    <h1>Welcome, {{ user.first_name }}!</h1>
+    <p class="lead">Start organizing your thoughts with clarity and ease.</p>
+    <a href="{{ url_for('views.home') }}" class="btn btn-primary"
+      >Go to Your Notes</a
+    >
+  </div>
+</div>
+
+{% endblock %}

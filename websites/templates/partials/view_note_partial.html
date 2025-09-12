@@ -1,0 +1,54 @@
+<div class="note-editor">
+  <h4 class="mb-3">📝 Note</h4>
+  <p>{{ note.data }}</p>
+
+  <h5 class="mt-4">🏷️ Tags</h5>
+  {% if note.tags %}
+  <ul class="list-inline">
+    {% for tag in note.tags %}
+    <li class="list-inline-item badge badge-primary p-2">{{ tag.name }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-muted"><em>No tags assigned.</em></p>
+  {% endif %}
+
+  <h5 class="mt-4">💬 Comments</h5>
+  <ul class="list-group mb-3">
+    {% for comment in note.comments %}
+    <li class="list-group-item">
+      <div class="d-flex justify-content-between">
+        <span
+          ><strong>{{ comment.user.first_name }}</strong>: {{ comment.text
+          }}</span
+        >
+        <small class="text-muted"
+          >{{ comment.date_posted.strftime('%Y-%m-%d %I:%M %p') }}</small
+        >
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <form method="POST" action="{{ url_for('views.view_note', id=note.id) }}">
+    <div class="form-group">
+      <textarea
+        name="comment"
+        class="form-control"
+        placeholder="Add a comment..."
+        rows="3"
+        required
+      ></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">➕ Post Comment</button>
+    <button type="button" class="btn btn-secondary ml-2" onclick="loadHome()">
+      🔙 Back
+    </button>
+  </form>
+
+  <script>
+    function loadHome() {
+      window.location.href = "{{ url_for('views.home') }}";
+    }
+  </script>
+</div>

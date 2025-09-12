@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %}View Note{% endblock %} {% block
+content %}
+<div class="container mt-4">
+  <h3>📝 Note</h3>
+  <div class="card mb-3">
+    <div class="card-body">
+      <p>{{ note.data }}</p>
+      <small class="text-muted"
+        >Created: {{ note.date.strftime('%Y-%m-%d %H:%M') }}</small
+      >
+    </div>
+  </div>
+
+  <h5>💬 Comments ({{ comments | length }})</h5>
+
+  <form method="POST" action="{{ url_for('views.view_note', id=note.id) }}">
+    <div class="form-group">
+      <textarea
+        name="comment"
+        class="form-control"
+        placeholder="Add a comment..."
+        rows="3"
+        required
+      ></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">➕ Post Comment</button>
+    <!-- Change back button to just go back in history to avoid 404 -->
+    <button
+      type="button"
+      class="btn btn-secondary ml-2"
+      onclick="window.history.back()"
+    >
+      🔙 Back
+    </button>
+  </form>
+
+  <ul class="list-group mt-3">
+    {% for comment in comments %}
+    <li class="list-group-item">
+      <strong
+        >{{ comment.user.first_name if comment.user else "Anonymous" }}</strong
+      >: {{ comment.text }}
+      <br />
+      <small class="text-muted"
+        >{{ comment.date_posted.strftime('%Y-%m-%d %H:%M') }}</small
+      >
+    </li>
+    {% else %}
+    <li class="list-group-item text-muted">No comments yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
