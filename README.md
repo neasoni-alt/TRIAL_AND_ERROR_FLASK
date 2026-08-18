@@ -1,4 +1,4 @@
-# 📝 Flask Notes App!
+# 📝 Flask Notes App
 
 A simple and secure note-taking web application built with **Flask**, **SQLite**, **HTML/CSS**, and **Bootstrap**. Users can create, edit, delete, and comment on notes — and even tag them for better organization.
 
